@@ -3,7 +3,7 @@ import Login from '~/pages/Login.vue'
 import NotFound from '~/pages/NotFound.vue'
 
 const routes = [
-  { path: '*', component: NotFound },
+  { path: '/:pathMatch(.*)*', component: NotFound },
   { path: '/', redirect: '/login' },
   { path: '/login', component: Login },
 ]
