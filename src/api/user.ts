@@ -1,4 +1,5 @@
 import { api } from '~/api/index'
+import type { IUser } from '~/types/user'
 
 export function login(username: string, password: string) {
   return api.post('/login', {
@@ -14,4 +15,8 @@ export function register(username: string, email: string, password: string, pass
     email,
     password_confirmation: passwordConfirmation,
   })
+}
+
+export function getSessionUser() {
+  return api.get<IUser>('/api/user').then(res => res.data)
 }

@@ -6,9 +6,10 @@ import '@vue/runtime-core'
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     Counter: typeof import('./src/components/Counter.vue')['default']
-    ErrorList: typeof import('./src/components/ErrorList.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
+    LoadingSpinner: typeof import('./src/components/LoadingSpinner.vue')['default']
     LoginForm: typeof import('./src/components/LoginForm.vue')['default']
+    MessageList: typeof import('./src/components/MessageList.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SignInForm: typeof import('./src/components/SignInForm.vue')['default']

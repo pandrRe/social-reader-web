@@ -8,18 +8,12 @@
       Welcome to <span class="font-extrabold text-indigo-800 dark:text-blue-300">Social Reader</span>.
     </h1>
   </section>
-  <section class="flex justify-center divide-x divide-gray-500 text-left">
-    <section class="px-8">
-      <h2 class="text-lg">
-        Returning user? <span class="font-extrabold text-indigo-800 dark:text-blue-300">Login</span>.
-      </h2>
-      <LoginForm></LoginForm>
+  <section class="flex flex-column justify-center divide-x divide-gray-500 text-left">
+    <section class="flex-[0_0_50%] px-8 flex justify-end">
+      <LoginForm />
     </section>
-    <section class="px-8">
-      <h2 class="text-lg">
-        No account? <span class="font-extrabold text-indigo-800 dark:text-blue-300">Sign up</span>.
-      </h2>
-      <SignInForm></SignInForm>
+    <section class="flex-[0_0_50%] px-8">
+      <SignInForm />
     </section>
   </section>
 </template>
