@@ -1,5 +1,7 @@
 <script setup lang="ts">
+import type { AxiosError } from 'axios'
 import { register } from '~/api/user'
+import { mountErrors } from '~/lib/mountErrors'
 
 function emptyFormData() {
   return {
@@ -26,8 +28,8 @@ function submitSignUp() {
         setTimeout(() => isSuccess.value = false, 5000)
       })
     })
-    .catch((err) => {
-      errors.value = Object.values(err.response.data.errors).flat() as string[]
+    .catch((err: AxiosError) => {
+      errors.value = mountErrors(err)
     })
 }
 </script>

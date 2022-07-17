@@ -1,15 +1,31 @@
 <script setup lang="ts">
+import type { AxiosError } from 'axios'
 import { login } from '~/api/user'
+import { mountErrors } from '~/lib/mountErrors'
 
-const formData = reactive({
-  username: '',
-  password: '',
-})
+function emptyFormData() {
+  return {
+    username: '',
+    password: '',
+  }
+}
+
+const router = useRouter()
+const formData = ref(emptyFormData())
+const errors = ref<string[]>([])
 
 function submitLogin() {
-  login(formData.username, formData.password)
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
+  login(formData.value.username, formData.value.password)
+    .then(() => {
+      errors.value = []
+      router.push('/feed')
+    })
+    .catch((err: AxiosError) => {
+      errors.value = mountErrors(err)
+    })
+    .finally(() => {
+      formData.value = emptyFormData()
+    })
 }
 </script>
 
@@ -49,6 +65,7 @@ function submitLogin() {
         Login
       </button>
     </form>
+    <MessageList v-if="errors.length" type="error" class="w-fit" :items="errors" />
   </section>
 </template>
 
