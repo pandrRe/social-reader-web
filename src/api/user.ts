@@ -8,6 +8,10 @@ export function login(username: string, password: string) {
   })
 }
 
+export function logout() {
+  return api.post('/logout')
+}
+
 export function register(username: string, email: string, password: string, passwordConfirmation: string) {
   return api.post('/api/register', {
     name: username,

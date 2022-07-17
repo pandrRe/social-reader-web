@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <section class="mb-6">
+  <section class="mb-6" p="y-10" text="center">
     <h1 class="text-3xl">
       Welcome to <span class="font-extrabold text-indigo-800 dark:text-blue-300">Social Reader</span>.
     </h1>

@@ -3,6 +3,7 @@
 </script>
 
 <template>
+  <AppBar />
   <section>a</section>
 </template>
 

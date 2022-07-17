@@ -16,14 +16,16 @@ api.get('sanctum/csrf-cookie')
 </script>
 
 <template>
-  <main font-sans p="x-4 y-10" text="center gray-700 dark:gray-200">
-    <section v-if="isLoading" class="flex justify-center items-center h-50vh">
-      <LoadingSpinner />
-    </section>
-    <section v-else-if="errorOnCsrfRequest" class="flex justify-center items-center h-50vh">
-      Error while securing the page. Please reload.
+  <main font-sans text="gray-700 dark:gray-200">
+    <section text="center" p="x-4 y-10" v-if="isLoading || errorOnCsrfRequest">
+      <section v-if="isLoading" class="flex justify-center items-center h-50vh">
+        <LoadingSpinner />
+      </section>
+      <section v-else-if="errorOnCsrfRequest" class="flex justify-center items-center h-50vh">
+        Error while securing the page. Please reload.
+      </section>
     </section>
     <router-view v-else />
-    <!--    <Footer /> -->
+        <Footer />
   </main>
 </template>
