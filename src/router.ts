@@ -2,12 +2,19 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Login from '~/pages/Login.vue'
 import NotFound from '~/pages/NotFound.vue'
 import Feed from '~/pages/Feed.vue'
+import FeedViewer from '~/pages/FeedViewer.vue'
 import { getSessionUser } from '~/api/user'
 
 const routes = [
   { path: '/:pathMatch(.*)*', component: NotFound },
   { path: '/login', component: Login },
-  { path: '/feed', component: Feed },
+  {
+    path: '/feed',
+    component: Feed,
+    children: [
+      { path: '/feed/:feedId', name: 'feed-viewer', component: FeedViewer, props: true },
+    ],
+  },
 ]
 
 const router = createRouter({

@@ -16,7 +16,7 @@ api.get('sanctum/csrf-cookie')
 </script>
 
 <template>
-  <main font-sans text="gray-700 dark:gray-200">
+  <main font-sans flex="~ col" text="gray-700 dark:gray-200" h="100%">
     <section text="center" p="x-4 y-10" v-if="isLoading || errorOnCsrfRequest">
       <section v-if="isLoading" class="flex justify-center items-center h-50vh">
         <LoadingSpinner />
@@ -26,6 +26,6 @@ api.get('sanctum/csrf-cookie')
       </section>
     </section>
     <router-view v-else />
-        <Footer />
+<!--        <Footer />-->
   </main>
 </template>

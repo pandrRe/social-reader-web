@@ -9,3 +9,7 @@ body,
 html.dark {
   background: #121212;
 }
+
+html.dark #app-bar {
+  background: #111111;
+}

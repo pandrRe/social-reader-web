@@ -5,15 +5,18 @@ import '@vue/runtime-core'
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AddFeedModal: typeof import('./src/components/AddFeedModal.vue')['default']
     AppBar: typeof import('./src/components/AppBar.vue')['default']
     Counter: typeof import('./src/components/Counter.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
     LoadingSpinner: typeof import('./src/components/LoadingSpinner.vue')['default']
     LoginForm: typeof import('./src/components/LoginForm.vue')['default']
     MessageList: typeof import('./src/components/MessageList.vue')['default']
+    Modal: typeof import('./src/components/Modal.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SignInForm: typeof import('./src/components/SignInForm.vue')['default']
+    SubscriptionList: typeof import('./src/components/SubscriptionList.vue')['default']
     Template: typeof import('./src/components/Template.vue')['default']
   }
 }
