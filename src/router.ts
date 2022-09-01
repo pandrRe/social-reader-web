@@ -11,8 +11,9 @@ const routes = [
   {
     path: '/feed',
     component: Feed,
+    name: 'feeds',
     children: [
-      { path: '/feed/:feedId', name: 'feed-viewer', component: FeedViewer, props: true },
+      { path: '/feed/:channelId', name: 'feed-viewer', component: FeedViewer },
     ],
   },
 ]

@@ -1,5 +1,5 @@
 import { api } from '~/api/index'
-import type { IChannelSubscription } from '~/types/channel'
+import type { IChannelSubscription, TItem } from '~/types/channel'
 
 export function getUserSubscriptions() {
   return api.get<IChannelSubscription[]>('/api/subscription').then(res => res.data)
@@ -7,4 +7,8 @@ export function getUserSubscriptions() {
 
 export function addUserSubscription(url: string) {
   return api.post<IChannelSubscription>('/api/subscription', { xml_source: url }).then(res => res.data)
+}
+
+export function getChannelItems(channelId: number | string) {
+  return api.get<TItem>(`/api/channel/${channelId}/items`).then(res => res.data)
 }

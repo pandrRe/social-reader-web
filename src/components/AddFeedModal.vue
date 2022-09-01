@@ -20,7 +20,13 @@ const { mutate } = useMutation((url: string) => {
 })
 
 function subscribe() {
-  mutate(feedUrl.value)
+  if (feedUrl.value) {
+    mutate(feedUrl.value)
+  }
+}
+
+function closeModal() {
+  emit('update:modelValue', false)
 }
 </script>
 
@@ -43,6 +49,9 @@ function subscribe() {
     </template>
     <template #footer>
       <div flex justify-end>
+        <button btn mr-2 bg="transparent hover:gray-800" @click="closeModal">
+          Cancel
+        </button>
         <button btn class="bg-indigo-600 hover:bg-indigo-700 dark:bg-blue-500 dark:hover:bg-blue-700" @click="subscribe">
           Add Feed
         </button>

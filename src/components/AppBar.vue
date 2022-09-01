@@ -15,7 +15,7 @@ function requestLogout() {
 </script>
 
 <template>
-  <header id="app-bar" flex>
+  <header h-12 id="app-bar" flex>
     <span p="3" flex="none" font="bold" text="indigo-800 dark:blue-300">
       Social Reader
     </span>
