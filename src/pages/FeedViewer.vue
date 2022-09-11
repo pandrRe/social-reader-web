@@ -10,31 +10,6 @@ const { data, isLoading, isError } = useQuery(
   () => channelId.value ? getChannelItems(channelId.value) : Promise.resolve([]),
   { enabled },
 )
-
-const feedViewer = ref<HTMLElement | undefined>()
-const feedWidth = ref<number | null>(null)
-const feedX = ref<number | null>(null)
-const feedWidthPx = computed(() => `${feedWidth.value || 0}px`)
-const feedXPx = computed(() => `${feedX.value || 0}px`)
-
-function setFeedDimensions(element: EventTarget) {
-  const rect = (element as HTMLElement).getBoundingClientRect()
-  feedWidth.value = (element as HTMLElement).clientWidth
-  feedX.value = rect.x
-}
-
-function onResize(resizeEvent: Event) {
-  if (resizeEvent.target)
-    setFeedDimensions(resizeEvent.target)
-}
-
-watchEffect((onCleanup) => {
-  if (feedViewer.value) {
-    setFeedDimensions(feedViewer.value)
-    feedViewer.value.addEventListener('resize', onResize)
-    onCleanup(() => feedViewer.value && feedViewer.value.removeEventListener('resize', onResize))
-  }
-})
 </script>
 
 <template>
