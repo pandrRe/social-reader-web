@@ -22,10 +22,17 @@ const { data, isLoading, isError } = useQuery(
     </div>
     <ol v-else-if="data && data.length > 0" class="article-list">
       <li v-for="item in data" :key="item.id">
-        <article mb-6>
-          <h2 text-xl p-4>
-            {{ item.title }}
-          </h2>
+        <article mb-10 mt-4>
+          <header p-4 flex items-center>
+            <h2 text-xl inline-block>
+              {{ item.title }}
+            </h2>
+            <div inline-block px-2>
+              <a class="text-zinc-500 hover:text-blue-300" v-if="item.link" :href="item.link" rel="noopener noreferral" target="_blank" flex items-center>
+                <div inline-block class="i-carbon-link" />
+              </a>
+            </div>
+          </header>
           <main p="x-8" v-html="item.description" />
         </article>
       </li>
@@ -51,7 +58,7 @@ const { data, isLoading, isError } = useQuery(
   display: block;
 }
 
-.article-list a {
+.article-list > main a {
   color: #93C5FD;
 }
 
