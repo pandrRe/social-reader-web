@@ -10,5 +10,5 @@ export function addUserSubscription(url: string) {
 }
 
 export function getChannelItems(channelId: number | string) {
-  return api.get<TItem>(`/api/channel/${channelId}/items`).then(res => res.data)
+  return api.get<TItem>(`/api/items?channelId=${channelId}`).then(res => res.data)
 }

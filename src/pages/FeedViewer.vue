@@ -1,26 +1,51 @@
 <script setup lang="ts">
 import { useQuery } from 'vue-query'
 import { getChannelItems } from '~/api/channel'
-import useChannelFromSubscriptions from '~/composables/useChannelFromSubscriptions'
+import useCurrentChannel from '~/composables/useCurrentChannel'
 
-const route = useRoute()
-const channelId = computed(() => route.params.channelId as string)
-
-const channel = useChannelFromSubscriptions(channelId)
-const enabled = computed(() => Boolean(channel))
-const { data } = useQuery(
+const { channel, channelId } = useCurrentChannel()
+const enabled = computed(() => channelId && Boolean(channel))
+const { data, isLoading, isError } = useQuery(
   ['channel', 'items', channelId],
-  () => getChannelItems(channelId.value),
+  () => channelId.value ? getChannelItems(channelId.value) : Promise.resolve([]),
   { enabled },
 )
+
+const feedViewer = ref<HTMLElement | undefined>()
+const feedWidth = ref<number | null>(null)
+const feedX = ref<number | null>(null)
+const feedWidthPx = computed(() => `${feedWidth.value || 0}px`)
+const feedXPx = computed(() => `${feedX.value || 0}px`)
+
+function setFeedDimensions(element: EventTarget) {
+  const rect = (element as HTMLElement).getBoundingClientRect()
+  feedWidth.value = (element as HTMLElement).clientWidth
+  feedX.value = rect.x
+}
+
+function onResize(resizeEvent: Event) {
+  if (resizeEvent.target)
+    setFeedDimensions(resizeEvent.target)
+}
+
+watchEffect((onCleanup) => {
+  if (feedViewer.value) {
+    setFeedDimensions(feedViewer.value)
+    feedViewer.value.addEventListener('resize', onResize)
+    onCleanup(() => feedViewer.value && feedViewer.value.removeEventListener('resize', onResize))
+  }
+})
 </script>
 
 <template>
-  <section w="70%" class="feed-viewer" overflow-auto>
-    <h1 v-if="channel" class="article-list-header" text-3xl p-4 font-bold>
-      {{ channel.rss_channel.title }}
-    </h1>
-    <ol v-if="data && data.length > 0" class="article-list">
+  <section ref="feedViewer" w="50vw" px-6 class="feed-viewer" bg-zinc-900 overflow-auto>
+    <div v-if="isLoading" text="xl center">
+      Loading...
+    </div>
+    <div v-else-if="isError" text="xl center">
+      An error occurred while fetching feed items.
+    </div>
+    <ol v-else-if="data && data.length > 0" class="article-list">
       <li v-for="item in data" :key="item.id">
         <article mb-6>
           <h2 text-xl p-4>
@@ -39,11 +64,9 @@ const { data } = useQuery(
 <style scoped>
 .feed-viewer {
   max-height: calc(100vh - 3rem);
-}
-
-.article-list-header {
-  box-sizing: border-box;
-  height: 4rem;
+  height: calc(100vh - 3rem);
+  position: relative;
+  z-index: 100;
 }
 </style>
 

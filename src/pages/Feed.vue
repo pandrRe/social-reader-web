@@ -1,10 +1,10 @@
 <template>
   <AppBar />
-  <section flex="~ auto" p="l-13%">
-    <section flex="~ auto col" w="20%" border="r-1 slate-600">
+  <section flex="~ auto">
+    <section flex="~ auto col" w="25vw">
       <SubscriptionList></SubscriptionList>
     </section>
-    <section flex="auto" w="80%">
+    <section flex="auto" w="75vw">
       <router-view></router-view>
     </section>
   </section>
