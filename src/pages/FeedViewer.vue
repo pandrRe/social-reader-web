@@ -30,7 +30,7 @@ watchEffect((onCleanup) => {
 </script>
 
 <template>
-  <section ref="feedViewer" w="50vw" px-6 class="feed-viewer" bg-zinc-900 overflow-auto>
+  <section ref="feedViewer" w="50vw" px-6 class="feed-viewer" bg-neutral-800 overflow-auto>
     <div v-if="isLoading" text="xl center">
       Loading...
     </div>

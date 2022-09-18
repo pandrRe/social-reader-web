@@ -30,8 +30,8 @@ function requestLogout() {
       </span>
     </section>
     <section w="50vw">
-      <div v-if="channel" bg-zinc-900 h="100%" pt-2 px-10 :class="{'border-solid border-b-1 border-zinc-500': feedState.isScrolled}">
-        <h1 v-if="!feedState.isScrolled" text-3xl>{{ channel.rss_channel.title }}</h1>
+      <div v-if="channel" bg-neutral-800 rounded-t-2xl h="100%" pt-2 px-10 :class="{ 'border-solid border-b-1 border-zinc-500': feedState.isScrolled }">
+        <h1 v-if="!feedState.isScrolled" text-3xl font-semibold>{{ channel.rss_channel.title }}</h1>
         <h2 v-else flex items-center>
           <div inline-block class="i-carbon-chevron-up" mr-2 />
           Back to top

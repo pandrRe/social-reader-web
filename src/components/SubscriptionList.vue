@@ -74,7 +74,7 @@ ol {
 .feed-list-item--active {
   border-radius: 30px 0px 0px 30px;
   margin-right: 0px !important;
-  background-color: rgb(24 24 27);
+  background-color: rgb(38 38 38);
   padding-left: 10px;
   margin-left: 2em;
 }
