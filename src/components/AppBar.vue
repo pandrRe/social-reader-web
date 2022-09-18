@@ -2,10 +2,13 @@
 import { useQuery } from 'vue-query'
 import { getSessionUser, logout } from '~/api/user'
 import useCurrentChannel from '~/composables/useCurrentChannel'
+import { useFeedState } from '~/state/useFeedState'
 
 const { data: user } = useQuery(['user'], getSessionUser)
 const router = useRouter()
 const { channel } = useCurrentChannel()
+
+const feedState = useFeedState()
 
 function requestLogout() {
   logout()
@@ -27,7 +30,13 @@ function requestLogout() {
       </span>
     </section>
     <section w="50vw">
-      <h1 v-if="channel" bg-zinc-900 h="100%" pt-2 px-10 text-3xl>{{ channel.rss_channel.title }}</h1>
+      <div v-if="channel" bg-zinc-900 h="100%" pt-2 px-10 :class="{'border-solid border-b-1 border-zinc-500': feedState.isScrolled}">
+        <h1 v-if="!feedState.isScrolled" text-3xl>{{ channel.rss_channel.title }}</h1>
+        <h2 v-else flex items-center>
+          <div inline-block class="i-carbon-chevron-up" mr-2 />
+          Back to top
+        </h2>
+      </div>
     </section>
     <section w="25vw" flex="~ auto" justify-end>
       <span>

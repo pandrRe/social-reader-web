@@ -16,40 +16,42 @@ function getChannelTitle(channel: IChannel): string {
 </script>
 
 <template>
-  <router-link to="/feed">
-    <h1 p="l-4 t-6 b-4" text="xl orange-300">
-      My Feeds
-    </h1>
-  </router-link>
-  <li class="feed-list-item" p="y-2 x-4" text="orange-200" flex items-center cursor-pointer @click="isAddFeedModalOpen = true">
-    <div inline-block class="i-carbon-add" mr-2 text-lg />
-    Add New Feed
-  </li>
-  <section v-if="isLoading" text="center" p="t-6">
-    Loading subscriptions...
-  </section>
-  <div v-else-if="data && data.length === 0" text="center" p="t-6 x-4">
-    No subscriptions. Start following feeds by pressing the button above.
-  </div>
-  <ol v-else>
-    <li
-      v-for="subscription in data"
-      :key="subscription.id"
-      class="feed-list-item"
-      :class="{ 'feed-list-item--active': currentChannel && currentChannel.id === subscription.channel_id }"
-    >
-      <router-link
-        w-full
-        h-full
-        block
-        p="y-2 x-4"
-        :to="{ name: 'feed-viewer', params: { channelId: subscription.channel.id } }"
-      >
-        {{ subscription.channel.rss_channel.title }}
-      </router-link>
+  <div font-body>
+    <router-link to="/feed">
+      <h1 font-sans p="l-4 t-6 b-4" text="xl orange-300">
+        My Feeds
+      </h1>
+    </router-link>
+    <li class="feed-list-item" p="y-2 x-4" text="orange-200" flex items-center cursor-pointer @click="isAddFeedModalOpen = true">
+      <div inline-block class="i-carbon-add" mr-2 text-lg />
+      Add New Feed
     </li>
-  </ol>
-  <AddFeedModal v-model="isAddFeedModalOpen" />
+    <section v-if="isLoading" text="center" p="t-6">
+      Loading subscriptions...
+    </section>
+    <div v-else-if="data && data.length === 0" text="center" p="t-6 x-4">
+      No subscriptions. Start following feeds by pressing the button above.
+    </div>
+    <ol v-else>
+      <li
+        v-for="subscription in data"
+        :key="subscription.id"
+        class="feed-list-item"
+        :class="{ 'feed-list-item--active': currentChannel && currentChannel.id === subscription.channel_id }"
+      >
+        <router-link
+          w-full
+          h-full
+          block
+          p="y-2 x-4"
+          :to="{ name: 'feed-viewer', params: { channelId: subscription.channel.id } }"
+        >
+          {{ subscription.channel.rss_channel.title }}
+        </router-link>
+      </li>
+    </ol>
+    <AddFeedModal v-model="isAddFeedModalOpen" />
+  </div>
 </template>
 
 <style scoped>

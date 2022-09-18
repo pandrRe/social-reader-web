@@ -4,6 +4,14 @@ body,
   height: 100%;
   margin: 0;
   padding: 0;
+  letter-spacing: 0.30px;
+  line-height: 24px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: 0px;
 }
 
 html.dark {
