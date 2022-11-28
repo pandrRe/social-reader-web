@@ -38,7 +38,7 @@ watchEffect((onCleanup) => {
 </script>
 
 <template>
-  <section :key="channel" ref="feedViewer" w="50vw" px-6 class="feed-viewer" border="t-1 x-1 neutral-700" rounded-t-2xl overflow-auto scroll-smooth>
+  <section :key="channel" ref="feedViewer" w="50vw" px-6 class="feed-viewer" border="t-1 x-1 gray-700" rounded-t-2xl overflow-auto scroll-smooth>
     <div v-if="channel" sticky top-0>
       <Transition name="header" mode="out-in">
         <header v-if="!feedState.isScrolled" mt-4>

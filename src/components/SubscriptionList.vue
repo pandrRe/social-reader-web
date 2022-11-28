@@ -68,14 +68,14 @@ ol {
 }
 
 .feed-list-item:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(55, 65, 81, 1);
   margin-right: 10px;
 }
 
 .feed-list-item--active {
   border-radius: 30px 0px 0px 30px;
   margin-right: 0px !important;
-  border: 1px solid rgb(64 64 64);
+  border: 1px solid rgb(55 65 81);
   border-right: 0;
   padding-left: 10px;
   margin-left: 2em;

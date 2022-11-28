@@ -10,7 +10,7 @@ const emit = defineEmits(['update:modelValue'])
   <Transition name="modal">
     <div v-if="modelValue" class="modal-mask">
       <div class="modal-wrapper">
-        <div class="modal-container" bg="gray-100 dark:gray-900">
+        <div class="modal-container" bg="gray-100 dark:neutral-900" border="1 gray-700" rounded>
           <div class="modal-header">
             <slot name="header"></slot>
           </div>

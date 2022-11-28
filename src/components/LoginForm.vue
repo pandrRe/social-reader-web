@@ -34,7 +34,7 @@ function submitLogin() {
     <h2 class="text-lg">
       Returning user? <span class="font-extrabold text-indigo-800 dark:text-blue-300">Login</span>.
     </h2>
-    <form class="w-250px">
+    <form class="w-250px mb-4">
       <div class="mb-2">
         <label for="username" class="text-xs font-bold">Username</label><br>
         <input
