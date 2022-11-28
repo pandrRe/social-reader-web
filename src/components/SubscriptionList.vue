@@ -2,6 +2,7 @@
 import type { IChannel } from '~/types/channel'
 import useUserSubscriptions from '~/composables/useUserSubscriptions'
 import useCurrentChannel from '~/composables/useCurrentChannel'
+import htmlDecode from '~/lib/htmlDecode'
 
 const isAddFeedModalOpen = ref(false)
 
@@ -46,7 +47,7 @@ function getChannelTitle(channel: IChannel): string {
           p="y-2 x-4"
           :to="{ name: 'feed-viewer', params: { channelId: subscription.channel.id } }"
         >
-          {{ subscription.channel.rss_channel.title }}
+          {{ htmlDecode(subscription.channel.rss_channel.title) }}
         </router-link>
       </li>
     </ol>
@@ -74,9 +75,11 @@ ol {
 .feed-list-item--active {
   border-radius: 30px 0px 0px 30px;
   margin-right: 0px !important;
-  background-color: rgb(38 38 38);
+  border: 1px solid rgb(64 64 64);
+  border-right: 0;
   padding-left: 10px;
   margin-left: 2em;
+  position: relative;
 }
 
 .feed-list-item {

@@ -20,7 +20,7 @@ function requestLogout() {
 </script>
 
 <template>
-  <header id="app-bar" h-12 flex>
+  <header id="app-bar" h-12 flex text-ellipsis whitespace-nowrap overflow-x-hidden>
     <section flex="~ auto" w="25vw">
       <span p="3" flex="none" font="bold" text="indigo-800 dark:blue-300">
         Social Reader
@@ -30,13 +30,6 @@ function requestLogout() {
       </span>
     </section>
     <section w="50vw">
-      <div v-if="channel" bg-neutral-800 rounded-t-2xl h="100%" pt-2 px-10 :class="{ 'border-solid border-b-1 border-zinc-500': feedState.isScrolled }">
-        <h1 v-if="!feedState.isScrolled" text-3xl font-semibold>{{ channel.rss_channel.title }}</h1>
-        <h2 v-else flex items-center>
-          <div inline-block class="i-carbon-chevron-up" mr-2 />
-          Back to top
-        </h2>
-      </div>
     </section>
     <section w="25vw" flex="~ auto" justify-end>
       <span>

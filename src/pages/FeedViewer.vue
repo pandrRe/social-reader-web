@@ -3,6 +3,7 @@ import { useQuery } from 'vue-query'
 import { getChannelItems } from '~/api/channel'
 import useCurrentChannel from '~/composables/useCurrentChannel'
 import { useFeedState } from '~/state/useFeedState'
+import htmlDecode from '~/lib/htmlDecode'
 
 const { channel, channelId } = useCurrentChannel()
 const enabled = computed(() => channelId && Boolean(channel))
@@ -19,6 +20,13 @@ function setIsScrolled(event: Event) {
   feedState.setIsScrolled((event.target as HTMLElement).scrollTop > 0)
 }
 
+function scrollToTop() {
+  if (feedViewer.value)
+    feedViewer.value.scrollTo(0, 0)
+}
+
+watch(feedViewer, () => feedState.setIsScrolled(false))
+
 watchEffect((onCleanup) => {
   if (feedViewer.value) {
     feedViewer.value.addEventListener('scroll', setIsScrolled)
@@ -30,7 +38,25 @@ watchEffect((onCleanup) => {
 </script>
 
 <template>
-  <section ref="feedViewer" w="50vw" px-6 class="feed-viewer" bg-neutral-800 overflow-auto>
+  <section :key="channel" ref="feedViewer" w="50vw" px-6 class="feed-viewer" border="t-1 x-1 neutral-700" rounded-t-2xl overflow-auto scroll-smooth>
+    <div v-if="channel" sticky top-0>
+      <Transition name="header" mode="out-in">
+        <header v-if="!feedState.isScrolled" mt-4>
+          <h1 text-3xl font-semibold>
+            {{ htmlDecode(channel.rss_channel.title) }}
+          </h1>
+          <h2 v-if="channel.rss_channel.description" font-body mt-2>
+            {{ channel.rss_channel.description }}
+          </h2>
+        </header>
+        <h2 v-else flex justify-end text-md>
+          <span bg-gray-900 shadow="~ gray-800" mix-blend-overlay opacity-50 hover:opacity-100 flex items-center rounded-md p-3 cursor-pointer @click="scrollToTop">
+            <div inline-block class="i-carbon-chevron-up" mr-2 />
+            Back to top
+          </span>
+        </h2>
+      </Transition>
+    </div>
     <div v-if="isLoading" text="xl center">
       Loading...
     </div>
@@ -39,7 +65,7 @@ watchEffect((onCleanup) => {
     </div>
     <ol v-else-if="data && data.length > 0" class="article-list">
       <li v-for="item in data" :key="item.id">
-        <article pb-10 pt-4 border="b-1 neutral-700">
+        <article mb-10 mt-4 pb-8 pt-3 px-4 bg-neutral-800 rounded-md outline="hover:~ 1 neutral-600">
           <header p-4 flex items-center>
             <h2 text-xl inline-block font-semibold>
               {{ item.title }}
@@ -50,7 +76,7 @@ watchEffect((onCleanup) => {
               </a>
             </div>
           </header>
-          <main p="x-8" v-html="item.description" font-body />
+          <main px-4 font-body v-html="item.description" />
         </article>
       </li>
     </ol>
@@ -58,9 +84,16 @@ watchEffect((onCleanup) => {
       Oops... Looks like this feed has no publications in it.
     </div>
   </section>
-  <section v-if="feedState.isScrolled" w="25vw" p-6>
-    <h1 text-xl>{{ channel.rss_channel.title }}</h1>
-  </section>
+  <Transition>
+    <section v-if="feedState.isScrolled" w="25vw" p-6>
+      <h1 text-2xl font-semibold>
+        {{ htmlDecode(channel.rss_channel.title) }}
+      </h1>
+      <h2 font-body>
+        {{ channel.rss_channel.description }}
+      </h2>
+    </section>
+  </Transition>
 </template>
 
 <style scoped>
@@ -69,6 +102,28 @@ watchEffect((onCleanup) => {
   height: calc(100vh - 3rem);
   position: relative;
   z-index: 100;
+}
+
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+  transform: translateY(2em);
+}
+
+.header-enter-active,
+.header-leave-active {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.header-enter-from,
+.header-leave-to {
+  opacity: 0;
+  transform: translateX(2em);
 }
 </style>
 
