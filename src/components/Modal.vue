@@ -9,8 +9,8 @@ const emit = defineEmits(['update:modelValue'])
 <template>
   <Transition name="modal">
     <div v-if="modelValue" class="modal-mask">
-      <div class="modal-wrapper">
-        <div class="modal-container" bg="gray-100 dark:neutral-900" border="1 gray-700" rounded>
+      <div class="modal-wrapper" @click.stop="emit('update:modelValue', false)">
+        <div class="modal-container" @click.stop bg="gray-100 dark:neutral-900" border="1 gray-700" rounded>
           <div class="modal-header">
             <slot name="header"></slot>
           </div>
@@ -51,12 +51,18 @@ const emit = defineEmits(['update:modelValue'])
 }
 
 .modal-container {
-  width: 400px;
+  width: max-content;
+  max-width: 60vw;
   margin: 0px auto;
   padding: 20px 30px;
   border-radius: 2px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
+}
+
+.modal-body {
+  overflow: auto;
+  max-height: 70vh;
 }
 
 /*

@@ -29,7 +29,17 @@ export interface IRssChannel {
 }
 
 export interface IRssItem {
-
+  id: number
+  title: string | null
+  link: string | null
+  description: string | null
+  content: string | null
+  author: string | null
+  comments: string | null
+  guid: string | null
+  source: string | null
+  pub_date: string | null
+  channel_id: string
 }
 
 export interface IAtomEntry {}

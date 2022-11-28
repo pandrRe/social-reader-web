@@ -9,6 +9,7 @@ declare module '@vue/runtime-core' {
     AppBar: typeof import('./src/components/AppBar.vue')['default']
     Counter: typeof import('./src/components/Counter.vue')['default']
     Footer: typeof import('./src/components/Footer.vue')['default']
+    ItemContentModal: typeof import('./src/components/ItemContentModal.vue')['default']
     LoadingSpinner: typeof import('./src/components/LoadingSpinner.vue')['default']
     LoginForm: typeof import('./src/components/LoginForm.vue')['default']
     MessageList: typeof import('./src/components/MessageList.vue')['default']

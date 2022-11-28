@@ -4,13 +4,14 @@ import { getChannelItems } from '~/api/channel'
 import useCurrentChannel from '~/composables/useCurrentChannel'
 import { useFeedState } from '~/state/useFeedState'
 import htmlDecode from '~/lib/htmlDecode'
+import { IRssItem } from '~/types/channel'
 
 const { channel, channelId } = useCurrentChannel()
 const enabled = computed(() => channelId && Boolean(channel))
 const { data, isLoading, isError } = useQuery(
   ['channel', 'items', channelId],
   () => channelId.value ? getChannelItems(channelId.value) : Promise.resolve([]),
-  { enabled },
+  { enabled, staleTime: 30000 },
 )
 
 const feedViewer = ref<HTMLElement | undefined>()
@@ -35,6 +36,8 @@ watchEffect((onCleanup) => {
     })
   }
 })
+
+const selectedItem = ref<IRssItem | null>(null)
 </script>
 
 <template>
@@ -65,7 +68,7 @@ watchEffect((onCleanup) => {
     </div>
     <ol v-else-if="data && data.length > 0" class="article-list">
       <li v-for="item in data" :key="item.id">
-        <article mb-10 mt-4 pb-8 pt-3 px-4 bg-neutral-800 rounded-md outline="hover:~ 1 neutral-600">
+        <article mb-5 mt-5 pt-3 px-4 bg-neutral-800 rounded-md outline="hover:~ 1 neutral-500">
           <header p-4 flex items-center>
             <h2 text-xl inline-block font-semibold>
               {{ item.title }}
@@ -76,7 +79,12 @@ watchEffect((onCleanup) => {
               </a>
             </div>
           </header>
-          <main px-4 font-body v-html="item.description" />
+          <section class="article-body" px-4 font-body v-html="item.description" />
+          <footer px-4 py-4>
+            <button v-if="item.content" btn bg="neutral-700 hover:neutral-600" my-2 @click="selectedItem = item">
+              Read full content
+            </button>
+          </footer>
         </article>
       </li>
     </ol>
@@ -94,6 +102,7 @@ watchEffect((onCleanup) => {
       </h2>
     </section>
   </Transition>
+  <ItemContentModal v-model="selectedItem" />
 </template>
 
 <style scoped>
@@ -133,7 +142,7 @@ watchEffect((onCleanup) => {
   display: block;
 }
 
-.article-list main a {
+.article-list .article-body a {
   color: #93C5FD;
 }
 

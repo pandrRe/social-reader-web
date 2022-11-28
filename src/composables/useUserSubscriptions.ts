@@ -3,6 +3,6 @@ import { getUserSubscriptions } from '~/api/channel'
 
 export default function useUserSubscriptions() {
   return useQuery(['userSubscriptions'], getUserSubscriptions, {
-    cacheTime: 5000,
+    staleTime: 30000,
   })
 }

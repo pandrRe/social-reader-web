@@ -4,7 +4,7 @@ import { getSessionUser, logout } from '~/api/user'
 import useCurrentChannel from '~/composables/useCurrentChannel'
 import { useFeedState } from '~/state/useFeedState'
 
-const { data: user } = useQuery(['user'], getSessionUser)
+const { data: user } = useQuery(['user'], getSessionUser, { staleTime: 30000 })
 const router = useRouter()
 const { channel } = useCurrentChannel()
 
