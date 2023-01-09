@@ -27,6 +27,10 @@ function getChannelTitle(channel: IChannel): string {
       <div inline-block class="i-carbon-add" mr-2 text-lg />
       Add New Feed
     </li>
+    <li class="feed-list-item" p="y-2 x-4" text="orange-200" flex items-center cursor-pointer @click="isAddFeedModalOpen = true">
+      <div inline-block class="i-carbon-folder-add" mr-2 text-lg />
+      Create New Folder
+    </li>
     <section v-if="isLoading" text="center" p="t-6">
       Loading subscriptions...
     </section>
